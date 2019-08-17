@@ -1,0 +1,141 @@
+<!Doctype html>
+<html lang='en'>
+<head>
+	<title>Move Number </title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		        function Rectangle(x, y, width, height, value) {
+            var value, x, y, width, height, color;
+            if (value) this.value = value;
+            if (x) this.x = x;
+            if (y) this.y = y;
+            else this.y = 30;
+            if (width) this.width = width;
+            else this.width = rectangleWidth;
+            if (height) this.height = height;
+            else this.height = 60;
+            this.color = rectanglesColor;
+            this.setX = function(X) {
+                this.x = X;
+            }
+            this.setY = function(Y) {
+                this.y = Y;
+            }
+            this.setWidth = function(WIDTH) {
+                this.width = WIDTH;
+            }
+            this.setHeight = function(HEIGHT) {
+                this.height = HEIGHT
+            }
+            this.setValue = function(VALUE) {
+                this.value = VALUE;
+            }
+            this.setColor = function(COLOR) {
+                this.color = COLOR;
+            }
+            this.getX = function() {
+                return this.x;
+            }
+            this.getY = function() {
+                return this.y;
+            }
+            this.getWidth = function() {
+                return this.width;
+            }
+            this.getHeight = function() {
+                return this.height;
+            }
+            this.getValue = function() {
+                return this.value;
+            }
+            this.getColor = function() {
+                return this.color;
+            }
+            this.drawRectangle = function() {
+                canvasContext.fillStyle = this.color;
+                canvasContext.fillRect(this.x, this.y, this.width, this.height);
+                canvasContext.fillStyle = "black";
+                var textWidth=canvasContext.measureText(this.value).width;
+                if (this.value || this.value == 0) canvasContext.fillText(this.value, this.x + (this.width)/2-textWidth/2, this.y + (this.height) / 2);
+                //here this.x+10 where 10 is act as margin
+            }
+        }
+        function RectangleValue(X,Y,VALUE)
+        {
+        	this.x=X;
+        	this.y=Y;
+        	this.value=VALUE;
+        	this.drawText=function()
+        	{
+        		canvasContext.fillText(this.value,this.x,this.y);
+        	}
+        }
+        var tempRectangles=[];
+        var rectangles = [];
+        var canvas;
+        var canvasContext;
+		var rectanglesColor = '#8BBEE6FF';
+        window.onload=function()
+        {
+        	canvas=document.getElementById("myCanvas");
+        	canvasContext=canvas.getContext("2d");
+        	canvasContext.font = "30px arial";
+        	var r=new Rectangle(20,20,100,100,20);
+        	r.drawRectangle();
+        	rectangles.push(r);
+        	r=new Rectangle(150,20,100,100,10);
+        	r.drawRectangle();
+        	rectangles.push(r);
+        }
+        function draw()
+        {
+        	canvasContext.clearRect(0,0,canvas.width,canvas.height);
+        	// console.log(rectangles.length);
+        	for(var i=0;i<rectangles.length;i++)
+        	{
+        		// console.log("value of i is"+i);
+        		rectangles[i].drawRectangle();
+        	}
+        	tempRectangles[0].drawRectangle();
+
+        }
+		function test()
+		{
+			var temp=new Rectangle(150,150,100,100,"");
+			temp.drawRectangle();
+			tempRectangles.push(temp);
+			moveNumber(rectangles[1]);
+		}
+		function moveNumber(r1)
+		{
+			var tempValue=r1.value;
+			var originalY=r1.y+(r1.height/2);
+			var originalX=r1.x+(r1.width/2);
+			rectangles[1].value="";
+			var temp=tempRectangles[0];
+			var tempY=temp.y+(temp.height/2);
+			var r=new RectangleValue(originalX,originalY,tempValue);
+			moveNumberInterval=setInterval(function(){
+				animateNumber(tempValue,originalX,originalY,tempY,r)
+				
+			},100);
+		}
+		function animateNumber(value,originalX,originalY,tempY,r)
+		{
+			draw();
+			r.drawText();
+			r.y=r.y+4;
+			console.log(r.y);
+			console.log(tempY);
+			if(r.y>tempY)
+			{
+				clearInterval(moveNumberInterval);
+			}
+		}
+	</script>
+</head>
+<body>
+	<canvas id="myCanvas" width="400" height="500"></canvas>
+	<button type="button" onclick="test()">Move Number</button>
+</body>
+</html>

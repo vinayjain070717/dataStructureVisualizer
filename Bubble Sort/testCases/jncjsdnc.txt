@@ -1,0 +1,20 @@
+First of all,
+
+Comparing the values at 
+0 and 1.
+The value at index 
+0 is 20 and 
+the value at index 
+1 is 10. 
+Since 
+20 is greater than 10 
+therefore swap the values at 
+0 and 1
+
+now,
+
+Comparing the values of indices 0 and 1. the value at index 0 is 10 and the value at index 1 is 20. since 10 is not       greater than 20 therefore no swapping is required.
+
+now,
+
+Comparing the values of indices 0 and 1. the value at index 0 is 10 and the value at index 1 is 10. since 10 is not           greater than 10 therefore no swapping is required.

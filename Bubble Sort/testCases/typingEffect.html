@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>typing</title>
+    <script>
+        function TypingEffect(canvasContext,x,y,string,delay,style,color)
+        {
+        	var string,x,y,delay,canvasContext;
+        	var i = 0;
+        	this.canvasContext=canvasContext;
+        	var THIS=this;
+        	this.makeTypingEffect=function(x,y,string,delay,style,color)
+        	{
+	        	if(string) this.string=string;
+	        	if(x) this.x=x;
+	        	if(y) this.y=y;
+	        	if(delay) this.delay=delay;
+	        	else this.delay=100;
+	        	if(style) this.style=style;
+	        	else this.style="16px arial";
+	        	if(color) this.color=color;
+	        	else this.color="black";
+	      	    if (i < THIS.string.length) 
+	        	{
+	        		THIS.canvasContext.font=THIS.style;
+	        		THIS.canvasContext.fillStyle=THIS.color;
+	                THIS.canvasContext.fillText(THIS.string.charAt(i),THIS.x,THIS.y);
+	                THIS.x=THIS.x+THIS.canvasContext.measureText(THIS.string.charAt(i)).width;
+			        setTimeout(function(){
+			        	THIS.makeTypingEffect(THIS.x,THIS.y,THIS.string,THIS.delay,THIS.style,THIS.color);
+			        }, THIS.delay);
+	                i++;
+	        		THIS.canvasContext.font="20px arial";
+	        		THIS.canvasContext.fillStyle="black";
+	        	}
+	        }
+
+        }
+
+        function test() {
+        	var canvas=document.getElementById("myCanvas");
+        	var canvasContext=canvas.getContext("2d");
+        	var text=document.getElementById("myTextField").value;
+        	var t=new TypingEffect(canvasContext);
+        	t.makeTypingEffect(40,40,text);
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="400"></canvas>
+    <input type="text" id="myTextField">
+    <button onclick="test()">click</button>
+    <!-- <span id="textSpan"></span> -->
+</body>
+
+</html>

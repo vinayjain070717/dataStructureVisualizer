@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8'>
+	<title>bubble Sort</title>
+	<script>
+		function Rectangle(x,y,width,height,value)
+		{
+			var x,y,width,height,value,color;
+			if(x) this.x=x;
+			if(y) this.y=y;
+			else this.y=100;
+			if(width) this.width=width;
+			else this.width=rectangleWidth;
+			if(height) this.height=height;
+			else this.height=80;
+			if(value) this.value=value;
+			this.color='#e3fbf2';
+			this.setX=function(X)
+			{
+				this.x=X;
+			}
+			this.setY=function(Y)
+			{
+				this.y=Y;
+			}
+			this.setWidth=function(WIDTH)
+			{
+				this.width=WIDTH;
+			}
+			this.setHeight=function(HEIGHT)
+			{
+				this.height=HEIGHT
+			}
+			this.setValue=function(VALUE)
+			{
+				this.value=VALUE;
+			}
+			this.setColor=function(COLOR)
+			{
+				this.color=COLOR;
+			}
+			this.getX=function()
+			{
+				return this.x;
+			}
+			this.getY=function()
+			{
+				return this.y;
+			}
+			this.getWidth=function()
+			{
+				return this.width;
+			}
+			this.getHeight=function()
+			{
+				return this.height;
+			}
+			this.getValue=function()
+			{
+				return this.value;
+			}
+			this.getColor=function()
+			{
+				return this.color;
+			}
+			this.drawRectangle=function()
+			{
+				canvasContext.fillStyle=this.color;
+				canvasContext.fillRect(this.x,this.y,this.width,this.height);
+				canvasContext.fillStyle="black";
+				if(this.value) canvasContext.fillText(this.value,this.x+10,this.y+(this.height)/2);
+				//here this.x+10 where 10 is act as margin
+			}
+		}
+		var rectangles=[];
+		// var values=[];
+		var canvas;
+		var canvasContext;
+		var x=10
+		var rectangleWidth=50;
+		var spaceBetweenRectangle=50;
+		window.onload=function()
+		{
+			canvas=document.getElementById("myCanvas");
+			canvasContext=canvas.getContext("2d");
+		}
+		function draw()
+		{
+			canvasContext.font="20px arial";
+			canvasContext.clearRect(0,0,canvas.width,canvas.height);
+			for(i=0;i<=rectangles.length-1;i++)
+			{
+				rectangles[i].drawRectangle();
+			}
+		}
+		function checkDimension()
+		{
+			if(canvas.width<x)
+			{
+				canvas.width=canvas.width+rectangleWidth+spaceBetweenRectangle;
+			}
+			draw();
+		}
+		function CreateElements()
+		{
+			canvasContext.clearRect(0,0,canvas.width,canvas.height);
+			var numberOfElements=document.getElementById("numberOfElements");
+			// console.log(numberOfElements.value);
+			x=10;
+			for(i=0;i<=numberOfElements.value-1;i++)
+			{
+				var r=new Rectangle();
+				r.setX(x);
+				r.drawRectangle();
+				x=x+rectangleWidth+spaceBetweenRectangle;
+				checkDimension();
+				rectangles.push(r);
+			}
+			draw();
+
+		}
+		function AddElement()
+		{
+			var v=document.getElementById("valueOfElements");
+			//here we check width of our text and check that is font is overflow
+			var textWidth=canvasContext.measureText(v.value).width;
+			if(textWidth+10>rectangleWidth)
+			{
+				var difference=textWidth-rectangleWidth+10
+				rectangleWidth=rectangleWidth+(difference);
+				//change width of all rectangle
+				x=10;
+				for(var i=0;i<=rectangles.length-1;i++)
+				{
+					rectangles[i].width=rectangleWidth;
+				}
+				draw();
+			}
+			for(var i=0;i<=rectangles.length-1;i++)
+			{
+				if(!rectangles[i].value) break;
+			}
+			if(i>=rectangles.length)
+			{
+				alert("more numbers than expected");
+				return;
+			}
+			console.log(textWidth);
+			rectangles[i].value=parseInt(v.value);
+			rectangles[i].drawRectangle();
+		}
+		function SortElement()
+		{
+			// for(i=0;i<=rectangles.length-1;i++)
+			// {
+			// 	values.push(parseInt(rectangles[i].value));
+			// }
+			bubbleSort();
+			draw();
+		}
+		function bubbleSort()
+		{
+			var length=rectangles.length;
+			for(var i=0; i<length; i++)
+			{
+				for(var j=0;j<(length-i-1); j++)
+				{
+					// console.log("hello");
+					// setTimeout(function()
+					// {	
+					// 	console.log("good");
+					// // changeColor(rectangles[j],rectangles[j+1]);
+					// 	// rectangles[j].color="green";
+					// 	// rectangles[j+1].color="green";
+					// 	// draw();
+					// },1000)
+					(function(index)
+					{
+						setTimeout(function(){
+							// console.log("vinay");
+							rectangles[index].color="green";
+							rectangles[index+1].color="green";
+							draw();							
+						},j*1000);
+					})(j);
+					if(rectangles[j].value>rectangles[j+1].value)
+					{
+						var tmp=rectangles[j].value;
+						rectangles[j].value=rectangles[j+1].value;
+						rectangles[j+1].value=tmp;
+					}
+					(function(index)
+					{
+						setTimeout(function(){
+							// console.log("bad");
+							rectangles[index].color="#e3fbf2";
+							rectangles[index+1].color="#e3fbf2";
+							draw();
+						},1000);
+					})(j);
+//					releaseColor(rectangles[j],rectangles[j+1]);
+				}
+			}
+		}
+		function changeColor(rect1,rect2)
+		{
+			console.log("good");
+				rect1.color="green";
+				rect2.color="green";
+				draw();
+		}
+		function releaseColor(rect1,rect2)
+		{
+			console.log("bad");
+			rect1.color='#e3fbf2';
+			rect2.color='#e3fbf2';
+			draw();
+		}
+		function drawRectangles()
+		{
+			for(var k=0;k<=rectangles.length-1;k++)
+		{
+			console.log("good");
+			sleep(1000);
+			rectangles[k].drawRectangle();
+		}
+
+		}
+		function sleep(milliseconds) {
+		  var start = new Date().getTime();
+		  for (var i = 0; i < 1e7; i++) {
+		    if ((new Date().getTime() - start) > milliseconds){
+		      break;
+		    }
+		  }
+		}
+		function test()
+		{
+			for(i=1;i<=10;i++)
+			{
+				console.log("123");
+				sleep(1000);
+			}
+			console.log("good");
+			sleep(1000);
+			console.log("bad");
+			sleep(2000);
+			console.log("better");
+		}
+
+	</script>
+</head>
+<body>
+<div style="max-height: 400px;max-width: 800px;overflow: scroll;">
+        <canvas id="myCanvas" width="780px" height="370px" style="border:1px solid black;"></canvas>
+</div>  	
+	<br>
+	<table>
+		<tr>
+			<td>Number Of Elements</td>
+			<td><input type="number" id="numberOfElements" value="5"></td>
+			<td><button type="button" onclick="CreateElements()">Create Elements</button></td>
+		</tr>
+		<tr>
+			<td>Value of Elements</td>
+			<td><input type="number" id="valueOfElements"></td>
+			<td><button type="button" onclick="AddElement()">Add Elements</button></td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center"><button type="button" onclick="SortElement()">Sort</button>
+	</table>
+	<button type="button" onclick="test()">test</button>
+</body>
+</html>

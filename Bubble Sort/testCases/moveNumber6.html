@@ -1,0 +1,257 @@
+<!Doctype html>
+<html lang='en'>
+
+<head>
+    <title>Move Number </title>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+        function Rectangle(x, y, width, height, value) {
+            var value, x, y, width, height, color;
+            if (value) this.value = value;
+            if (x) this.x = x;
+            if (y) this.y = y;
+            else this.y = 30;
+            if (width) this.width = width;
+            else this.width = rectangleWidth;
+            if (height) this.height = height;
+            else this.height = 60;
+            this.color = rectanglesColor;
+            this.setX = function(X) {
+                this.x = X;
+            }
+            this.setY = function(Y) {
+                this.y = Y;
+            }
+            this.setWidth = function(WIDTH) {
+                this.width = WIDTH;
+            }
+            this.setHeight = function(HEIGHT) {
+                this.height = HEIGHT
+            }
+            this.setValue = function(VALUE) {
+                this.value = VALUE;
+            }
+            this.setColor = function(COLOR) {
+                this.color = COLOR;
+            }
+            this.getX = function() {
+                return this.x;
+            }
+            this.getY = function() {
+                return this.y;
+            }
+            this.getWidth = function() {
+                return this.width;
+            }
+            this.getHeight = function() {
+                return this.height;
+            }
+            this.getValue = function() {
+                return this.value;
+            }
+            this.getColor = function() {
+                return this.color;
+            }
+            this.drawRectangle = function() {
+                canvasContext.fillStyle = this.color;
+                canvasContext.fillRect(this.x, this.y, this.width, this.height);
+                canvasContext.fillStyle = "black";
+                var textWidth = canvasContext.measureText(this.value).width;
+                if (this.value || this.value == 0) canvasContext.fillText(this.value, this.x + (this.width) / 2 - textWidth / 2, this.y + (this.height) / 2);
+                //here this.x+10 where 10 is act as margin
+            }
+        }
+
+
+        // var tempRectangles = [];
+        var rectangles = [];
+        var canvas;
+        // var speed = 8;
+        var canvasContext;
+        // var numberObject;
+        var rectanglesColor = '#8BBEE6FF';
+        var animationStatus = 0; //0 for no animation ; 10 for animation on going; 20 for animation finished
+        var stringInfo=[];
+        window.onload = function() {
+            canvas = document.getElementById("myCanvas");
+            canvasContext = canvas.getContext("2d");
+            canvasContext.font = "30px arial";
+            var r = new Rectangle(20, 20, 100, 70, 20);
+            r.drawRectangle();
+            rectangles.push(r);
+            r = new Rectangle(150, 20, 100, 70, 10);
+            r.drawRectangle();
+            rectangles.push(r);
+            str="Hello How are You"
+            canvasContext.font="20px arial";
+            canvasContext.fillText(str,100,100);
+            stringInfo.push(str);
+            stringInfo.push(100);
+            stringInfo.push(100);
+        }
+
+        function SwappingEffect() {
+
+            var tempRectangles = [];
+            var speed = 8;
+            var numberObject;
+
+            function RectangleValue(X, Y, VALUE) {
+                this.x = X;
+                this.y = Y;
+                this.value = VALUE;
+                this.drawText = function() {
+                    canvasContext.fillText(this.value, this.x, this.y);
+                }
+            }
+
+            function draw() {
+                canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+                // console.log(rectangles.length);
+                for (var i = 0; i < rectangles.length; i++) {
+                    // console.log("value of i is"+i);
+                    rectangles[i].drawRectangle();
+                }
+                if (tempRectangles.length > 0) tempRectangles[0].drawRectangle();
+                if (numberObject != undefined) numberObject.drawText();
+                if(stringInfo.length>0) canvasContext.fillText(stringInfo[0],stringInfo[1],stringInfo[2]);
+            }
+
+
+
+            function findCenterCoordinates(r, TextWidth) {
+                var textWidth;
+                if (TextWidth) textWidth = TextWidth;
+                else textWidth = canvasContext.measureText(r.value).width;
+                var centerX = r.x + r.width / 2 - textWidth / 2;
+                var centerY = r.y + r.height / 2;
+                return [
+                    centerX, centerY
+                ];
+            }
+
+            function giveSpeed(index) {
+                if (index > 0) {
+                    index = index - 1;
+                    speed = speed / index;
+                } else {
+                    index = -index;
+                    index = index - 1;
+                    speed = speed + (2.4) * index;
+
+                }
+
+            }
+
+            this.swapRectangles = function(r1, r2, indexOfSpeed) {
+                giveSpeed(indexOfSpeed);
+                var index = 0;
+                var center1 = findCenterCoordinates(r1);
+                var center2 = findCenterCoordinates(r2);
+                var temp = new Rectangle((r1.x + r2.x) / 2, r2.height + r2.y + 20, r2.width, r2.height, "");
+                temp.color = "#F7F2F2";
+                temp.drawRectangle();
+                tempRectangles.push(temp);
+
+                (function abcd() {
+                    // console.log(animationStatus);
+                    if (index == 0 && animationStatus == 0) {
+                        animationStatus = 10;
+                        swapNumber(r2, tempRectangles[0]);
+                    }
+                    if (index == 1 && animationStatus == 0) {
+                        animationStatus = 10;
+                        swapNumber(r1, r2);
+                    }
+                    if (index == 2 && animationStatus == 0) {
+                        animationStatus = 10;
+                        swapNumber(tempRectangles[0], r1);
+                    }
+                    if (index == 3 && animationStatus == 0) {
+                        animationStatus = 10;
+                        tempRectangles.pop();
+                        draw();
+                    }
+                    if (animationStatus == 20) {
+                        animationStatus = 0;
+                        index++;
+                    }
+                    if (index < 4) {
+                        setTimeout(abcd, 100);
+                    }
+                })();
+            }
+
+            function swapNumber(r1, r2) {
+                var center1 = findCenterCoordinates(r1);
+                var center2 = findCenterCoordinates(r2, canvasContext.measureText(r1.value).width);
+                // console.log("temp rectangle value "+r1.value);
+                numberObject = new RectangleValue(center1[0], center1[1], r1.value);
+                r1.value = "";
+                animateNumber(numberObject, center2[0], center2[1]);
+            }
+
+            function animateNumber(numberObject, endingX, endingY) {
+                var xd, yd, step, xinc, yinc, numberObject;
+                xd = endingX - numberObject.x;
+                yd = endingY - numberObject.y;
+                var count = 0;
+                // var numberObject=new RectangleValue(center1[0],center1[1],r1.value);
+
+                if (Math.abs(xd) > Math.abs(yd)) step = Math.abs(xd);
+                else step = Math.abs(yd);
+                xinc = (xd / step);
+                yinc = (yd / step);
+                // console.log(xinc,yinc);
+                // console.log("------------------------------------------------");
+                // console.log("Starting point is "+numberObject.x,numberObject.y);
+                // console.log("Ending Point is "+endingX,endingY);
+                // console.log("Incrementing values :"+xinc,yinc);
+                (function lmn() {
+                    draw();
+                    numberObject.x = numberObject.x + xinc;
+                    numberObject.y = numberObject.y + yinc;
+                    var m = setTimeout(lmn, speed);
+                    console.log(count++);
+                    if (compareRect(numberObject.x, endingX) && compareRect(numberObject.y, endingY)) {
+                        clearInterval(m);
+                        var r = findRectangle(endingX, endingY, numberObject.value);
+                        r.value = numberObject.value;
+                        animationStatus = 20;
+                    }
+                })();
+            }
+
+            function compareRect(start, end) {
+                // console.log(Math.ceil(start),Math.ceil(end));
+                if (Math.ceil(start) == Math.ceil(end)) return true;
+                else return false;
+            }
+
+            function findRectangle(centerX, centerY, value) {
+                var center;
+                // console.log(centerX,centerY);
+                for (var i = 0; i <= rectangles.length - 1; i++) {
+                    center = findCenterCoordinates(rectangles[i], canvasContext.measureText(value).width);
+                    // console.log(center[0],center[1]);
+                    if (Math.abs(center[0]) == Math.abs(centerX) && Math.abs(center[1]) == Math.abs(centerY)) return rectangles[i];
+                }
+                return tempRectangles[0];
+            }
+        }
+
+        function test() {
+            var indexOfSpeed = document.getElementById("abc").value;
+            var swappingEffect = new SwappingEffect();
+            swappingEffect.swapRectangles(rectangles[0], rectangles[1], indexOfSpeed);
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="400" height="500"></canvas>
+    <input type="text" name="abc" id="abc">
+    <button type="button" onclick="test()">Move Number</button>
+</body>
+
+</html>
