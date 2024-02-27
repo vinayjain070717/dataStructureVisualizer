@@ -1,74 +1,321 @@
-<html><head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Bootstrap Example</title>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />	
-<!-- <link rel="stylesheet" type="text/css" href="css/mycss.css" />	 -->
-<script type="text/javascript" src="js/jquery.min.js" ></script>
-<script type="text/javascript" src="js/popper.min.js" ></script>
-<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-<style type="text/css">
-  h2
-  {
-    background-color:#ff0000;
-    color:#cccccc;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>DS Visualizer</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="SolMusic HTML Template">
+    <meta name="keywords" content="music, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" />
+
+    <!--venobox-->
+    <link rel="stylesheet" href="venobox/venobox.css" type="text/css" media="screen" />
+
+    <!-- Main Stylesheets -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/video.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/modal-video.min.css" />
+
+    <!--jQuery & JavaScript-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/modal-video.min.js"></script>
+    <script>
+        $(window).on('load', function() {
+            setTimeout(function() {
+                $('html,body').scrollTop(0)
+            }, 0);
+        });
+
+        function bubbleSort() {
+            window.location.href = "Bubble Sort.html";
+        }
+
+        function selectionSort() {
+            window.location.href = "Selection Sort.html";
+        }
+
+        function linearSort() {
+            window.location.href = "Linear Sort.html";
+        }
+
+        function linkedList() {
+            window.location.href = "Linked List.html";
+        }
+
+        function stack() {
+            window.location.href = "Stack.html";
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            new ModalVideo(".js-video-vimeo-btn", {
+                channel: 'vimeo'
+            });
+        });
+    </script>
 </head>
+
 <body>
-<!-- <br><br><br> -->
-<div class="container-fluid" >
- <div class="row" >
- <!-- <br><br><br><br><br> -->
-     <div class="jumbotron text-center w-100 p-4" style="background-color: #f1eacfc4;">
-        <h1>Data Structure Visualzier</h1>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
     </div>
 
-<!--  <p style="font-size:32px;margin-left:350px;">Data Structure Visualzier</p>
- <br><br><br><br><br>
- --></div>
-</div>
+    <!-- Header section -->
+    <header class="header-section clearfix">
+        <a href="index.html" class="site-logo">
+            <label class="h4"><span style="color: red;">DS</span><span style="color:whitesmoke;"> Visualizer</span></label>
+        </a>
+    </header>
+    <!-- Header section end -->
 
- <div class="row" style="margin-right: 10px;">
-  <div class="col-md-1"></div>
+    <!-- Hero section -->
+    <section class="hero-section">
+        <div class="hero-slider owl-carousel">
+            <div class="hs-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hs-text">
+                                <h2><span>Data</span> Structures.</h2>
+                                <p>
+                                    For data organization, management, and storage that enables efficient access and modification.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hr-img">
+                                <img src="img/hero-bg1.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hs-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="hs-text">
+                                <h2><span>Sorting </span> Algorithms.</h2>
+                                <p>
+                                    For optimizing the efficiency of other algorithms like search or merge.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hr-img">
+                                <img src="img/hero-bg2.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero section end -->
 
-<div class="card text-white bg-primary col-md-3" style="">
-  <div class="card-header">Sorting Algorithm</div>
-  <div class="card-body">
-    <h4 class="card-title">Let's Learn..!</h4>
-    <p class="card-text">Click below </p>
-    <br>
- <button type="button" href="#" class="btn btn-secondary btn-lg" style="margin-left:50px;background-color:transparent">Linear Sorting</button>
-    <br><br>
-    <button type="button" href="#"  class="btn btn-secondary btn-lg" style="margin-left:50px;background-color:transparent">Bubble Sorting</button>
-    <br><br>
-    <button type="button" href="#" class="btn btn-secondary btn-lg" style="margin-left:50px;background-color:transparent">Selection Sorting</button>
-    </div>
-  </div>
-<div class="col-md-1"></div>
-<div class="card text-white bg-success col-md-3" style="">
-  <div class="card-header">Stack</div>
-  <div class="card-body">
-    <h4 class="card-title">Let's Learn..!</h4>
-    <p class="card-text">You know how stack work? Don't worry click below..!</p>
-    <br><br>
-     <button type="button" href="#" class="btn btn-secondary btn-lg" style="margin-left:180px;background-color:transparent">Go..!</button>
-  </div>
-</div>
-<div class="col-md-1"></div>
+    <!-- Intro section -->
+    <section class="intro-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <a id="play-video" class="video-play-button launch-modal js-video-vimeo-btn" href="#" data-modal-id="modal-video" data-video-id="424364109">
+                            <span></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hs-text">
+                        <h2><span style="color: red;">Take</span> a moment.</h2>
+                        <p>
+                            A glimpse of how all things work here.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Intro section end -->
 
- <div class="card text-white bg-info col-md-3" style="float:left;">
-  <div class="card-header">Link List</div>
-  <div class="card-body">
-    <h4 class="card-title">Let's Learn..! </h4>
-    <p class="card-text">You know how Link List work? Don't worry click below..!<</p>
-  <br> <br>
-   <button type="button" href="#" class="btn btn-secondary btn-lg" style="margin-left:160px;background-color:transparent">Go..!</button>
-  </div>
-</div>
+    <!-- How section -->
+    <section class="how-section spad set-bg" data-setbg="img/how-to-bg.jpg">
+        <div class="container text-white">
+            <div class="section-title">
+                <h2>How it works</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="how-item">
+                        <div class="hi-icon">
+                            <img src="img/icons/choose.png" alt="">
+                        </div>
+                        <h4>Choose</h4>
+                        <p>
+                            Select the algorithm you want to learn.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="how-item">
+                        <div class="hi-icon">
+                            <img src="img/icons/enter.png" alt="">
+                        </div>
+                        <h4>Feed</h4>
+                        <p>
+                            Enter the numeric values on which you want to perform visualization.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="how-item">
+                        <div class="hi-icon">
+                            <img src="img/icons/visualize.png" alt="">
+                        </div>
+                        <h4>Visualize</h4>
+                        <p>
+                            And you are ready to go. Animation is prepared for you to learn the algorithm.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How section end -->
 
+    <!-- Concept section -->
+    <section class="concept-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-box text-center">
+                        <h4 class="title-a">
+                            Algorithms
+                        </h4>
+                        <br>
+                        <div class="line-mf"></div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <!--Bubble sort-->
+                <div class="col-md-4">
+                    <div class="work-box pointer" onclick="bubbleSort()">
+                        <div class="work-img">
+                            <img src="img/bubbleSort.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="work-content">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2 class="w-title">Bubble Sort</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Linear sort-->
+                <div class="col-md-4">
+                    <div class="work-box pointer" onclick="linearSort()">
+                        <div class="work-img">
+                            <img src="img/linearSort.png" alt="" class="img-fluid pointer">
+                        </div>
+                        <div class="work-content">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2 class="w-title">Linear Sort</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Selection sort-->
+                <div class="col-md-4">
+                    <div class="work-box pointer" onclick="selectionSort()">
+                        <div class="work-img">
+                            <img src="img/selectionSort.png" alt="" class="img-fluid pointer">
+                        </div>
+                        <div class="work-content">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2 class="w-title">Selection Sort</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Linked list-->
+                <div class="col-md-4">
+                    <div class="work-box pointer" onclick="linkedList()">
+                        <div class="work-img">
+                            <img src="img/linkedList.png" alt="" class="img-fluid pointer">
+                        </div>
+                        <div class="work-content">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2 class="w-title">Linked List</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Stack-->
+                <div class="col-md-4">
+                    <div class="work-box pointer" onclick="stack()">
+                        <div class="work-img">
+                            <img src="img/stack.png" alt="" class="img-fluid pointer">
+                        </div>
+                        <div class="work-content">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <h2 class="w-title">Stack</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Concept section end -->
 
-</div>
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container justify-content-center">
+            <label class="h4"><span style="color: red;">DS</span><span style="color:whitesmoke;"> Visualizer</span></label>
+            <div class="copyright">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear());
+                </script> All rights reserved | Designed by MK
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </div>
+        </div>
+    </footer>
+    <!-- Footer section end -->
 
+    <!--====== Javascripts & Jquery ======-->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.slicknav.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="venobox/venobox.min.js"></script>
+    <script src="js/video.js"></script>
 
 </body>
+
 </html>
